@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
-// #include <string>
 
 using namespace std;
 
 int main()
-{
-    vector<string> msg {"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!"};
-    for (const string& word : msg)
+{   vector<int> v ={1,2,3,4,5};
+    v.push_back(4);
+    for (int element : v)
     {
-        cout << "ghassen" << "\n";
+        cout << element << " "; 
     }
+    cout <<endl;
+    return(0); 
 
-    cout << endl;
+
 }
