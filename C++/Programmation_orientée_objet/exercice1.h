@@ -20,9 +20,40 @@ class Employe{
     void setPrenom(std::string  prenom);
     void setMatricule(std::string  matricule);
     void setDateDeNaissance(std::string  date_de_naissance);
-    
-
 
     std::string ToString();
 
+    virtual float salaire(); 
+
 };
+
+class ouvrier : public Employe{
+    
+    protected: 
+        std::string date_entre; 
+        const int SMIG = 2500; 
+        float accidente_en_ann; 
+    public: 
+        ouvrier(float Acc,std::string date_entre, std::string nom, std::string prenom, std::string matricule, std::string date_naiss); 
+        float salaire() override;
+}; 
+
+class cadre : public Employe{
+    protected : 
+        int indice; 
+
+    public: 
+        cadre(int indice, std::string nom, std::string prenom, std::string matricule, std::string date_naiss); 
+        float salaire() override;
+}; 
+
+class patron : public Employe{
+
+    protected: 
+        float chiffre_affaire; 
+        float pourcentage; 
+
+    public:
+        patron(float chiffre_affaire, float pourcentage, std::string nom, std::string prenom, std::string matricule, std::string date_naiss); 
+        float salaire() override;
+}; 
