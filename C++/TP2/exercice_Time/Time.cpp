@@ -1,5 +1,8 @@
 #include "Time.h"
 
+#include <iostream>
+#include <iomanip>
+
 Time::Time(int hours, int minutes, int seconds) 
 : hours(hours), minutes(minutes), secondes(seconds){}
 
@@ -38,9 +41,4 @@ void Time::addTime(const Time& T1,const Time& T2){
     this->hours = hour % 24;  
 }
 
-int main (){
-    Time T1; 
-    Time T2(18,2,23);
-    T2.getTime(); 
-}
 

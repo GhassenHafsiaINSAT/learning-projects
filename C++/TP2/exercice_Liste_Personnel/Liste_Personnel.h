@@ -1,15 +1,5 @@
-#include <iostream>
 #include <vector>
-
-class Personnel
-{
-private:
-    std::string nom; 
-    std::string prenom; 
-public:
-    Personnel(std::string nom ,std::string prenom);
-};
-
+#include "Personnel.h"
 
 class Liste_Personnel
 {
@@ -19,4 +9,3 @@ public:
     void Remplir_Liste_Personnel();
     void affiche_liste(); 
 };
-

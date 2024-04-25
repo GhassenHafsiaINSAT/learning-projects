@@ -1,5 +1,4 @@
-#include <iostream>
-#include <iomanip>
+#pragma once
 
 class Time
 {
@@ -16,4 +15,3 @@ public:
     int getSecondes(); 
     void addTime(const Time& T1, const Time& T2);
 };
-

@@ -1,6 +1,7 @@
 #include "Time.h"
 
-int main(){
+int main (){
     Time T1; 
-    std::cout<<T1.getHours()<<std::endl;
+    Time T2(18,2,23);
+    T2.getTime(); 
 }
