@@ -1,6 +1,5 @@
 #include "Liste_Personnel.h"
-#include <iostream>
-#include <iterator>
+
 
 void Liste_Personnel::Remplir_Liste_Personnel()
 {   char response; 

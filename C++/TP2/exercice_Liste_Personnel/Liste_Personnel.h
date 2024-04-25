@@ -1,5 +1,8 @@
+#pragma once
 #include <vector>
 #include "Personnel.h"
+#include <iostream>
+#include <iterator>
 
 class Liste_Personnel
 {
