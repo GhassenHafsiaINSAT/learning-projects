@@ -15,5 +15,6 @@ class fraction
         int simplification(fraction& other);
         fraction operator+(const fraction& other) const; 
         friend std::ostream& operator<<(std::ostream& os, const fraction& other); 
+        friend fraction operator++(const fraction& other); 
 }; 
 

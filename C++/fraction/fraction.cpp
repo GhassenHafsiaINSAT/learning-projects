@@ -26,10 +26,18 @@ void fraction::somme(fraction& f1, fraction& f2){
 fraction fraction::operator+(const fraction& other) const
 {
     fraction resultat; 
-    if (den == other.den){
-        resultat.num = num + other.num;
+    if (den % other.den == 0){
+        std::cout<<"true"<<std::endl; 
+        resultat.num = num + ((den / other.den)*other.num);
         resultat.den = den; 
     }
+    else if (other.den % den == 0)
+    {   
+        std::cout<<"false"<<std::endl; 
+        resultat.num = other.num + ((other.den /den)*num);
+        resultat.den = other.den;  
+    }
+    
     else
     {
         resultat.num = (num)*(other.den) + (other.num)*(den);
