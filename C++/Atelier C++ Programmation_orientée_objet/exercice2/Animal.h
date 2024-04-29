@@ -9,11 +9,9 @@ class animal {
         animal(std::string nom); 
         std::string getNom(); 
         void setNom(std::string nom); 
-        virtual void pousse_cri(); 
+        virtual void pousse_cri() = 0; 
 
 }; 
-
-
 
 
 
