@@ -109,7 +109,7 @@ CREATE table Enseignement(
     codeSemestre varchar(50),
     codeMatiere varchar(50),
     jour varchar(50), 
-    salle varchar(10),
+    salle varchar(50),
     constraint PK_codeMatiere_codeGroupe_AU primary key(codeGroupe,codeSemestre,codeMatiere), 
     constraint FK_codeSemestre_Enseignement foreign key(codeSemestre) references Semestre(codeSemestre), 
     constraint FK_groupe_enseignement foreign key(codeGroupe) references GroupeTD(codeGroupe), 
