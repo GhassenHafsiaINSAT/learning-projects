@@ -240,8 +240,20 @@ where (select count(*) from matière m where e.matricule=m.matricule) >= 2;
 
 --j
 select m.*, e.jour, e.codesemestre
-from matière m, (select n.* from niveau n where n.codeNiveau like 'IIA 3'), compositionGroupe c, ensegnement e
-where n.codeNiveau=c.codeNiveau and c.codeGroupe=e.codegroupe and e.codematière=m.codematière
+from matière m, (select n.* from niveau n where n.codeNiveau like 'IIA 3') n, compositionGroupe c, ensegnement e
+where n.codeNiveau=c.codeNiveau and c.codeGroupe=e.codegroupe and e.codematière=m.codematière; 
 
 --k 
-select 
+select e.numinscription ,count(ep.codeepreuve)
+from (select n.* from niveau n where n.codeniveau like 'IIA 3') n,
+    (select s.* from semestre s where s.codesemestre=2) s,
+    (select a.* from anneeuniversitaire a where a.au='2023-2024') a, 
+    epreuve ep,
+    evaluation ev,
+    etudiant e
+where e.numinscription=ev.numinscription and ev.codeepreuve=ep.codeepreuve;
+
+--l
+select e.* 
+from etudiant e, evaluation ev
+where 
