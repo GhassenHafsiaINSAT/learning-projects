@@ -244,16 +244,20 @@ from matière m, (select n.* from niveau n where n.codeNiveau like 'IIA 3') n, co
 where n.codeNiveau=c.codeNiveau and c.codeGroupe=e.codegroupe and e.codematière=m.codematière; 
 
 --k 
-select e.numinscription ,count(ep.codeepreuve)
+select e.numinscription , count(ep.codeepreuve)
 from (select n.* from niveau n where n.codeniveau like 'IIA 3') n,
     (select s.* from semestre s where s.codesemestre=2) s,
     (select a.* from anneeuniversitaire a where a.au='2023-2024') a, 
+    (select ss.* from sessionexamen ss where ss.codesession = 'DS') ss,
     epreuve ep,
     evaluation ev,
     etudiant e
-where e.numinscription=ev.numinscription and ev.codeepreuve=ep.codeepreuve;
+where e.numinscription=ev.numinscription and ev.codeepreuve=ep.codeepreuve 
+group by etudiant, ep.codeepreuve;
 
 --l
-select e.* 
-from etudiant e, evaluation ev
-where 
+SELECT a.nom, a.numInscription
+FROM  Etudiant e, Epreuve ep, Evaluation ev
+WHERE   e.numInscription = ev.numInscription
+        AND ep.codeEpreuve = ev.codeEpreuve
+        AND ep.codeSession NOT IN (SELECT codeSession FROM SessionExamen WHERE libelleSession LIKE 'DS' AND codeSemestre > 1)
