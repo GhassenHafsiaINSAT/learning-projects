@@ -79,7 +79,7 @@ FROM table_name;
 ```
 ### Delete a table 
 ```sql
-DROP TABLE table_name
+DROP TABLE table_name;
 ```
 
 ## SQL Aggregate Functions 
@@ -109,14 +109,14 @@ DROP TABLE table_name
 ```sql
 SELECT 
 FROM table_name1, table_name1
-WHERE table.name1.commun_field=table_name1.commun_field
+WHERE table.name1.commun_field=table_name1.commun_field;
 ```
 ### Multi-table Selection
 - Selection data from multiple tables.
 ```sql
 SELECT t1.column_name1, t2.column_name2
 FROM table_name1 t1, table_name2 t2
-WHERE t1.commun_field=t2.commun_field
+WHERE t1.commun_field=t2.commun_field;
 ```
 ### Outer Join
 - Combining rows from two or more tables and including unmatched rows from one or both tables.
@@ -126,5 +126,48 @@ SELECT t1.column_name1, t2.column_name2
 FROM table_name1 t1, table_name2 t2
 WHERE t1.common_field = t2.common_field(+);
 ```
-
-
+## SQL GROUP BY Statement 
+- The `GROUP BY` statement groups rows that have the same values into summary rows
+```sql
+SELECT column_name1, agg_func(column_name2)
+FROM table_name
+WHERE condition
+GROUP BY column_name1;
+```
+## SQL HAVING Keyword
+- The `HAVING` clause was added to SQL because the `WHERE` keyword cannot be used with aggregate functions.
+```sql
+SELECT column_name1
+FROM table_name
+WHERE condition
+GROUP BY column_name1
+HAVING condition
+```
+## SQL EXISTS Operator
+- The `EXISTS` operator is used to test for the existence of any record in a subquery.
+```sql
+SELECT column_name1
+FROM table_name
+WHERE EXISTS
+(SELECT column_name1 FROM table_name WHERE condition);
+```
+## SQL ANY Operator
+- `ANY` means that the condition will be true if the operation is true for any of the values in the range.
+```sql
+SELECT column_name1
+FROM table_name
+WHERE column_name operator ANY
+  (SELECT column_name
+  FROM table_name
+  WHERE condition);
+```
+## SQL ALL Operator
+- `ALL` means that the condition will be true only if the operation is true for all values in the range.
+```sql
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ALL
+  (SELECT column_name
+  FROM table_name
+  WHERE condition);
+```
