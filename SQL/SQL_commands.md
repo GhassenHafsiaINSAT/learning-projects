@@ -1,20 +1,18 @@
 # SQL 
 
 ## SQL SELECT Clause  
-
+- The `SELECT` statement is used to select data from a database.
 ```sql
 SELECT column1, column2, ...
 FROM table_name; 
 ```
 ### Select all elements
-
 ```sql
 SELECT * 
 FROM table_name; 
 ```
 
 ## SQL SELECT DISTINCT Clause
-
 - The `DISTINCT` keyword is used to return only distinct values.
 ```sql
 SELECT distinct column1
@@ -84,7 +82,7 @@ DROP TABLE table_name;
 
 ## SQL Aggregate Functions 
 - An aggregate function is a function that performs a calculation on a set of values, and returns a single value.
-
+- Aggregate functions ignore NULL values.   
     `MIN()` - returns the smallest value within the selected column.  
     `MAX()` - returns the largest value within the selected column.  
     `COUNT()` - returns the number of rows in a set.  
