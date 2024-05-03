@@ -1,4 +1,4 @@
-# SQL 
+# SQL COMMANDS Cheat Sheet
 
 ## SQL SELECT Clause  
 - The `SELECT` statement is used to select data from a database.
