@@ -1,4 +1,4 @@
-CREATE TABLE Enseignantt(
+CREATE TABLE Enseignant(
    matricule VARCHAR(50) CONSTRAINT PK_Enseignantt PRIMARY KEY,
    NomEnseignant VARCHAR(50),
    PrenomEnseignant VARCHAR(50),
@@ -40,13 +40,13 @@ CREATE TABLE Etudiant(
    Adresse VARCHAR(100)
 );
 
-CREATE TABLE Matière(
-   CodeMatière VARCHAR(10) CONSTRAINT PK_Matière PRIMARY KEY,
+CREATE TABLE Matiere(
+   CodeMatiere VARCHAR(10) CONSTRAINT PK_Matiere PRIMARY KEY,
    Libelle VARCHAR(100),
    VolumeHorraire NUMBER(4,2),
    Coefficient NUMBER(4,2),
    matricule VARCHAR(50),
-   CONSTRAINT FK_Matière_Enseignantt FOREIGN KEY(matricule) REFERENCES Enseignantt(matricule)
+   CONSTRAINT FK_Matiere_Enseignantt FOREIGN KEY(matricule) REFERENCES Enseignantt(matricule)
 );
 
 CREATE TABLE Semestre(
@@ -69,31 +69,32 @@ CREATE TABLE Epreuve(
    CodeEpreuve VARCHAR(50) CONSTRAINT PK_Epreuve PRIMARY KEY,
    DateEpreuve DATE,
    CreneauHorraire VARCHAR(50),
-   CodeMatière VARCHAR(10) ,
+   CodeMatiere VARCHAR(10) ,
    CodeSession VARCHAR(50),
-   CONSTRAINT FK_Epreuve_Matière FOREIGN KEY(CodeMatière) REFERENCES Matière(CodeMatière),
+   CONSTRAINT FK_Epreuve_Matiere FOREIGN KEY(CodeMatiere) REFERENCES Matiere(CodeMatiere),
    CONSTRAINT FK_Epreuve_SessionExamen FOREIGN KEY(CodeSession) REFERENCES SessionExamen(CodeSession)
 );
 
-CREATE TABLE Ensegnement(
+CREATE TABLE Enseignement(
    CodeGroupe VARCHAR(50),
-   CodeMatière VARCHAR(10),
+   CodeMatiere VARCHAR(10),
    CodeSemestre VARCHAR(50),
    CreneauHorraire VARCHAR(50),
    Jour VARCHAR(50),
    Salle VARCHAR(10),
-   CONSTRAINT PK_Ensegnement PRIMARY KEY(CodeGroupe, CodeMatière, CodeSemestre),
+   CONSTRAINT PK_Ensegnement PRIMARY KEY(CodeGroupe, CodeMatiere, CodeSemestre),
    CONSTRAINT FK_Ensegnement_GroupeTD FOREIGN KEY(CodeGroupe) REFERENCES GroupeTD(CodeGroupe),
-   CONSTRAINT FK_Ensegnement_Matière FOREIGN KEY(CodeMatière) REFERENCES Matière(CodeMatière),
+   CONSTRAINT FK_Ensegnement_Matiere FOREIGN KEY(CodeMatiere) REFERENCES Matiere(CodeMatiere),
    CONSTRAINT FK_Ensegnement_Semestre FOREIGN KEY(CodeSemestre) REFERENCES Semestre(CodeSemestre)
 );
 
-CREATE TABLE InscriptionN(
+
+CREATE TABLE InscriptionNiveau(
    CodeNiveau VARCHAR(50) CONSTRAINT PK_InscriptionN PRIMARY KEY,
    AU VARCHAR(50),
    NbreEtudiant NUMBER (3),
-   CONSTRAINT FK_InscriN_Niveau FOREIGN KEY(CodeNiveau) REFERENCES Niveau(CodeNiveau),
-   CONSTRAINT FK_InscriN_AnnU FOREIGN KEY(AU) REFERENCES AnneeUniversitaire(AU)
+   CONSTRAINT FK_Inscription_Niveau FOREIGN KEY(CodeNiveau) REFERENCES Niveau(CodeNiveau),
+   CONSTRAINT FK_Inscription_AnneeUniver FOREIGN KEY(AU) REFERENCES AnneeUniversitaire(AU)
 );
 
 CREATE TABLE Evaluation(
@@ -116,15 +117,16 @@ CREATE TABLE CompositionGroupe(
    CONSTRAINT FK_CompoGroupe_AnnUniver FOREIGN KEY(AU) REFERENCES AnneeUniversitaire(AU)
 );
 
-CREATE TABLE InscriptionE(
+CREATE TABLE InscriptionEtudiant(
    CodeGroupe VARCHAR(50),
    AU VARCHAR(50),
    NumInscription VARCHAR(50),
-   CONSTRAINT PK_InscriptionE PRIMARY KEY(CodeGroupe, AU, NumInscription),
-   CONSTRAINT FK_InscriE_GoupeTD FOREIGN KEY(CodeGroupe) REFERENCES GroupeTD(CodeGroupe),
-   CONSTRAINT FK_InscriE_AnnUniver FOREIGN KEY(AU) REFERENCES AnneeUniversitaire(AU),
-   CONSTRAINT FK_InscriE_Etudiant FOREIGN KEY(NumInscription) REFERENCES Etudiant(NumInscription)
+   CONSTRAINT PK_InscriptionEt PRIMARY KEY(CodeGroupe, AU, NumInscription),
+   CONSTRAINT FK_InscriEt_GoupeTD FOREIGN KEY(CodeGroupe) REFERENCES GroupeTD(CodeGroupe),
+   CONSTRAINT FK_InscriEt_AnnUniver FOREIGN KEY(AU) REFERENCES AnneeUniversitaire(AU),
+   CONSTRAINT FK_InscriEt_Etudiant FOREIGN KEY(NumInscription) REFERENCES Etudiant(NumInscription)
 );
+
 
 ALTER TABLE AnneeUniversitaire ADD CONSTRAINT CHK_AU CHECK ( AU LIKE '___-___');
 
