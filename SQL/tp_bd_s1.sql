@@ -244,15 +244,23 @@ from matière m, (select n.* from niveau n where n.codeNiveau like 'IIA 3') n, co
 where n.codeNiveau=c.codeNiveau and c.codeGroupe=e.codegroupe and e.codematière=m.codematière; 
 
 --k 
-select e.numinscription , count(ep.codeepreuve)
-from (select n.* from niveau n where n.codeniveau like 'IIA 3') n,
-    (select s.* from semestre s where s.codesemestre=2) s,
-    (select a.* from anneeuniversitaire a where a.au='2023-2024') a, 
-    (select ss.* from sessionexamen ss where ss.codesession = 'DS') ss,
+select e.numinscription , count(ep.codeepreuve) as "nombre d'epreuve"
+from niveau n, semestre s, anneeuniversitaire a, sessionexamen ss,
+    compositionGroupe cg,
     epreuve ep,
     evaluation ev,
     etudiant e
-where e.numinscription=ev.numinscription and ev.codeepreuve=ep.codeepreuve 
+where n.codeniveau like 'IIA 3'
+    and s.codesemestre= '2'
+    and a.au='2023-2024'
+    and ss.libelle = 'DS'
+    and e.numinscription=ev.numinscription 
+    and ev.codeepreuve=ep.codeepreuve 
+    and ep.codesession=ss.codesession
+    and ss.codeSemestre=s.codeSemestre
+    and s.au=a.au
+    and a.au=cg.au
+    and cg.codeNiveau=niveau.codeNiveau
 group by etudiant, ep.codeepreuve;
 
 --l
@@ -260,4 +268,16 @@ SELECT a.nom, a.numInscription
 FROM  Etudiant e, Epreuve ep, Evaluation ev
 WHERE   e.numInscription = ev.numInscription
         AND ep.codeEpreuve = ev.codeEpreuve
-        AND ep.codeSession NOT IN (SELECT codeSession FROM SessionExamen WHERE libelleSession LIKE 'DS' AND codeSemestre > 1)
+        AND ep.codeSession NOT IN (SELECT codeSession FROM SessionExamen se, semestre s 
+                                        WHERE se.libelleSession LIKE 'DS' 
+                                            AND se.codeSemestre = '2'
+                                            AND s.au = '2023-2024'
+                                            AND s.au = se.au); 
+        
+        
+        
+        
+        
+        
+        
+        
