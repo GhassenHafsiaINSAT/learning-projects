@@ -261,7 +261,7 @@ where n.codeniveau like 'IIA 3'
     and s.au=a.au
     and a.au=cg.au
     and cg.codeNiveau=niveau.codeNiveau
-group by etudiant, ep.codeepreuve;
+group by e.numinscription;
 
 --l
 SELECT a.nom, a.numInscription
