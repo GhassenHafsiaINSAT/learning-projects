@@ -104,10 +104,27 @@ DROP TABLE table_name
     - 	Represents any single character within the specified range *
     {} 	Represents any escaped character **
 ## Joins
-### INNER JOIN 
+### Self Join
+- A self join is when a table is joined with itself.  
 ```sql
 SELECT 
-FROM table_name1, table_name2
-WHERE table.name1.column_name1=table_name2.column_name2
+FROM table_name1, table_name1
+WHERE table.name1.commun_field=table_name1.commun_field
 ```
+### Multi-table Selection
+- Selection data from multiple tables.
+```sql
+SELECT t1.column_name1, t2.column_name2
+FROM table_name1 t1, table_name2 t2
+WHERE t1.commun_field=t2.commun_field
+```
+### Outer Join
+- Combining rows from two or more tables and including unmatched rows from one or both tables.
+- In Oracle, the `(+)` sign is used to denote an outer join, it is placed on th column of the tabl that might not have matching records in the other table.    
+```sql
+SELECT t1.column_name1, t2.column_name2
+FROM table_name1 t1, table_name2 t2
+WHERE t1.common_field = t2.common_field(+);
+```
+
 
