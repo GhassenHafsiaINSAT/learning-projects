@@ -68,7 +68,7 @@ CREATE TABLE SessionExamen(
 CREATE TABLE Epreuve(
    CodeEpreuve VARCHAR(50) CONSTRAINT PK_Epreuve PRIMARY KEY,
    DateEpreuve DATE,
-   CreneauHorraire VARCHAR(50),
+   CreneauHoraire VARCHAR(50),
    CodeMatiere VARCHAR(10) ,
    CodeSession VARCHAR(50),
    CONSTRAINT FK_Epreuve_Matiere FOREIGN KEY(CodeMatiere) REFERENCES Matiere(CodeMatiere),
@@ -79,7 +79,7 @@ CREATE TABLE Enseignement(
    CodeGroupe VARCHAR(50),
    CodeMatiere VARCHAR(10),
    CodeSemestre VARCHAR(50),
-   CreneauHorraire VARCHAR(50),
+   CreneauHoraire VARCHAR(50),
    Jour VARCHAR(50),
    Salle VARCHAR(10),
    CONSTRAINT PK_Ensegnement PRIMARY KEY(CodeGroupe, CodeMatiere, CodeSemestre),
@@ -127,70 +127,43 @@ CREATE TABLE InscriptionEtudiant(
    CONSTRAINT FK_InscriEt_Etudiant FOREIGN KEY(NumInscription) REFERENCES Etudiant(NumInscription)
 );
 
-
-ALTER TABLE AnneeUniversitaire ADD CONSTRAINT CHK_AU CHECK ( AU LIKE '___-___');
-
-ALTER TABLE Etudiant ADD CONSTRAINT CHK_email CHECK ( email LIKE REPLACE(Nom,' ','')||'.'||REPLACE(Prenom,' ','')||'@insat.ucar.tn');
-ALTER TABLE Enseignantt ADD CONSTRAINT CHK_emailE CHECK ( email LIKE REPLACE(NomEnseignant,' ','')||'.'||REPLACE(PrenomEnseignant,' ','')||'@insat.ucar.tn');
-
-ALTER TABLE Niveau MODIFY CodeSpec CONSTRAINT NN_CodeSpec NOT NULL ;
-ALTER TABLE Semestre MODIFY AU CONSTRAINT NN_AU NOT NULL ;
-ALTER TABLE SessionExamen MODIFY CodeSemestre CONSTRAINT NN_CodeSemestre NOT NULL ;
-ALTER TABLE Epreuve MODIFY CodeSession CONSTRAINT NN_CodeSession NOT NULL ;
-ALTER TABLE Epreuve MODIFY CodeMatière CONSTRAINT NN_CodeMatière NOT NULL ;
-ALTER TABLE CompositionGroupe MODIFY CodeNiveau CONSTRAINT NN_CodeNiveau NOT NULL ;
-ALTER TABLE CompositionGroupe MODIFY AU CONSTRAINT NN_AU2 NOT NULL ;
-ALTER TABLE CompositionGroupe MODIFY CodeGroupe CONSTRAINT NN_CodeGroupe NOT NULL ;
-ALTER TABLE InscriptionN MODIFY CodeNiveau CONSTRAINT NN_CodeNiveau2 NOT NULL ;
-ALTER TABLE InscriptionE MODIFY AU CONSTRAINT NN_AU3 NOT NULL ;
-ALTER TABLE InscriptionE MODIFY CodeGroupe CONSTRAINT NN_CodeGroupe1 NOT NULL ;
-ALTER TABLE InscriptionE MODIFY NumInscription CONSTRAINT NN_NumInscription NOT NULL ;
-ALTER TABLE Ensegnement MODIFY CodeGroupe CONSTRAINT NN_CodeGroupe2 NOT NULL ;
-ALTER TABLE Ensegnement MODIFY CodeSemestre CONSTRAINT NN_CodeSemestre1 NOT NULL ;
-ALTER TABLE Ensegnement MODIFY CodeMatière CONSTRAINT NN_CodeMatière1 NOT NULL ;
-ALTER TABLE Evaluation MODIFY NumInscription CONSTRAINT NN_NumInscription1 NOT NULL ;
-ALTER TABLE Evaluation MODIFY CodeEpreuve CONSTRAINT NN_CodeEpreuve NOT NULL ;
-
 ALTER TABLE Epreuve ADD CONSTRAINT CHK_CreneauHorraire CHECK ( CreneauHorraire LIKE '_h__-__h_');
-
 ALTER TABLE Evaluation ADD CONSTRAINT CHK_Note CHECK ( Note BETWEEN 0 AND 20);
-
 ALTER TABLE Semestre ADD CONSTRAINT CHK_LibelleSemestre CHECK ( LibelleSemestre LIKE 'Semestre1' OR LibelleSemestre LIKE 'Semestre2');
 
 CREATE SEQUENCE SQ_CodeEpreuve 
-START WITH  1
-INCREMENT BY 1;
+START WITH 1
+INCREMENT BY 1; 
+
+INSERT INTO Specialite values('iia','iia'); 
+INSERT INTO Niveau values('iia2','iia2','iia'); 
+INSERT INTO AnneeUniversitaire values('2023-2024'); 
+INSERT INTO GoupeTD values('iia 2-1'); 
+INSERT INTO Etudiant values('2100','ghassen','ghassen','H',TO_DATE('06-07-2002', 'MM-DD-YYYY'),'ghassen.ghassen@ucar.insat.tn','57888999', 'cite elKhadhra'); 
+INSERT INTO Semestre values('1','semestre1','04-09-2023', '05-12-2023','2023-2024'); 
+INSERT INTO InscriptionEtudiant values('2023,2024', 'iia 2-1', '2100'); 
+
+SELECT *  
+FROM Etudiant 
+ORDER BY date_de_naissance DESC; 
+
+SELECT *
+FROM Etudiant 
+WHERE genre like 'H'; 
+
+SELECT count(*) 
+FROM Etudiant
+WHERE genre like 'F'; 
+
+SELECT * 
+FROM Etudiant 
+WHERE adresse is NULL; 
+
+SELECT * 
+FROM Etudiant
+WHERE date_anniversaire = SYSDATE; 
 
 
-INSERT INTO AnneeUniversitaire VALUES('2022-2023');
-INSERT INTO AnneeUniversitaire VALUES('2023-2024');
-
-INSERT INTO GroupeTD VALUES ('IIA3-1');
-INSERT INTO GroupeTD VALUES ('IIA3-2');
-INSERT INTO GroupeTD VALUES ('IIA4-1');
-INSERT INTO GroupeTD VALUES ('IIA4-2');
-INSERT INTO GroupeTD VALUES ('GL3-1');
-INSERT INTO GroupeTD VALUES ('GL3-2');
-INSERT INTO GroupeTD VALUES ('GL4-1');
-INSERT INTO GroupeTD VALUES ('GL4-2');
-
-INSERT INTO Semestre VALUES ('1','Semestre1',TO_DATE('01/09/2023','DD/MM/YYYY'),TO_DATE('01/01/2024','DD/MM/YYYY'),'2023-2024');
-INSERT INTO Semestre VALUES ('2','Semestre2',TO_DATE('01/01/2024','DD/MM/YYYY'),TO_DATE('29/05/2024','DD/MM/YYYY'),'2023-2024');
-
-INSERT INTO Etudiant VALUES ('41000','hafsia','ghassen','m',TO_DATE('06/10/2002','DD/MM/YYYY'),'hafsia.ghassen@insat.ucar.tn','27596637','cite olympique');
-
-INSERT INTO InscriptionE VALUES ('IIA3/2','2023-2024','42000');
-
-INSERT INTO Etudiant VALUES ('21017','halfaoui','med tej','m',TO_DATE('12/11/2002','DD/MM/YYYY'),'halfaoui.medtej@insat.ucar.tn','5439','geant');
-INSERT INTO Etudiant VALUES ('21018','azzabi','khalil','m',TO_DATE('05/01/2000','DD/MM/YYYY'),'azzabi.khalil@insat.ucar.tn','948','mourouj3');
-INSERT INTO Etudiant VALUES ('21019','jelassi','yassine','m',TO_DATE('05/05/2006','DD/MM/YYYY'),'jelassi.yassine@insat.ucar.tn','929','mourouj3');
-
-
-
-INSERT INTO CompositionGroupe (CodeNiveau, AU, CodeGroupe, nbrsEtudGRP) VALUES ('IIA3','2023-2024','IIA3-2',29);
-INSERT INTO CompositionGroupe (CodeNiveau, AU, CodeGroupe, nbrsEtudGRP) VALUES ('IIA4','2023-2024','IIA4-1',35);
-INSERT INTO CompositionGroupe (CodeNiveau, AU, CodeGroupe, nbrsEtudGRP) VALUES ('IIA4','2023-2024','IIA4-2',34);
-INSERT INTO CompositionGroupe (CodeNiveau, AU, CodeGroupe, nbrsEtudGRP) VALUES ('IIA3', '2023-2024', 'IIA3-1', 31);
 
 --a
 select count(g.codeGroupe), n.codeNiveau, s.codeSpec 
